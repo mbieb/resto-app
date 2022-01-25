@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import './categories_screen.dart';
-import './category_meals_screen.dart';
+import '../screens/tabs_screen.dart';
+import '../screens/meal_detail_screen.dart';
+import '../screens/categories_screen.dart';
+import '../screens/category_meals_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,30 +12,39 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Resto App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor: Colors.amber,
-        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
-        fontFamily: 'Raleway',
-        textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: const TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
+        debugShowCheckedModeBanner: false,
+        title: 'Resto App',
+        theme: ThemeData(
+          canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+          fontFamily: 'Raleway',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                bodyText1: const TextStyle(
+                  color: Color.fromRGBO(20, 51, 51, 1),
+                ),
+                bodyText2: const TextStyle(
+                  color: Color.fromRGBO(20, 51, 51, 1),
+                ),
+                caption: const TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'RobotoCondensed',
+                    fontWeight: FontWeight.bold),
               ),
-              bodyText2: const TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
-              ),
-              caption: const TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'RobotoCondensed',
-                  fontWeight: FontWeight.bold),
-            ),
-      ),
-      home: const CategoriesScreen(),
-      routes: {
-        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
-      },
-    );
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
+              .copyWith(secondary: Colors.amber),
+        ),
+        // home: const CategoriesScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (ctx) => const TabScreen(),
+          CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+          MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
+        },
+        onGenerateRoute: (settings) {
+          // print(settings.arguments);
+          // return MaterialPageRoute(builder: (ctx) => const CategoriesScreen());
+        },
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(builder: (ctx) => const CategoriesScreen());
+        });
   }
 }
